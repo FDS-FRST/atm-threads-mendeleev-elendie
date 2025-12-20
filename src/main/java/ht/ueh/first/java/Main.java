@@ -34,5 +34,18 @@ public class Main {
         // ce type de probleme s`appelle race condition ou condition de concurrence
 
 
+        /*
+        Synchronized empeche la race condition , parce qu`il
+        bloque une section de code permettant a un seul thread d`y acceder
+        a la fois , sans synchronized plusieurs threads peuvent y
+        acceder a une ressource partagee et causerait une race condition
+        */
+
+        /*
+        Si plusieurs threads veulent entrer
+        dans la methode , le thread 2 doit attendre que
+        le thread 1 se termine avant d`y acceder a cette methode.
+         */
+
     }
 }

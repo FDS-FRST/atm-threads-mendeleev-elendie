@@ -14,7 +14,11 @@ public class BankAccount {
         System.out.println("Deposit: +" + amount + " | Balance = " + balance);
     };
 
-    public void withdraw(double amount) {
+    public synchronized void withdraw(double amount) {
+        if(amount > balance) {
+            System.out.println("fonds insuffisants | Solde = " + balance);
+            return;
+        }
         balance -= amount;
         System.out.println("Withdraw: -" + amount + " | Balance = " + balance);
     }
