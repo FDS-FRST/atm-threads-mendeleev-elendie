@@ -13,6 +13,13 @@ public class ATMTask implements Runnable{
 
     public void run()
     {
+        try
+        {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         switch(action)
         {
             case WITHDRAW: account.withdraw(amount);

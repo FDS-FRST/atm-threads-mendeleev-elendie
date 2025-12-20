@@ -9,7 +9,7 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public void deposit(double amount) {
+    public synchronized void deposit(double amount) {
         balance += amount;
         System.out.println("Deposit: +" + amount + " | Balance = " + balance);
     };
@@ -23,7 +23,7 @@ public class BankAccount {
         System.out.println("Withdraw: -" + amount + " | Balance = " + balance);
     }
 
-    public double getBalance() {
+    public synchronized double getBalance() {
         return balance;
     }
 }
