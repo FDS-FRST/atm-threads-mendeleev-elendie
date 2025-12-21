@@ -3,17 +3,18 @@ package ht.ueh.first.java;
 public class Main {
     public static void main(String[] args) {
         BankAccount account = new BankAccount(123,1000);
+        System.out.println("initial balance:"+account.getBalance()+"€");
 
-        Thread t1 = new Thread(new ATMTask(Action.WITHDRAW,account,700.0));
-        Thread t2 = new Thread(new ATMTask(Action.DEPOSIT,account,800.0));
-        Thread t3 = new Thread(new ATMTask(Action.WITHDRAW,account,600.0));
-        Thread t4 = new  Thread(new ATMTask(Action.BALANCE,account,700.0));
-        Thread t5  = new Thread(new ATMTask(Action.DEPOSIT,  account, 100.0));
-        Thread t6  = new Thread(new ATMTask(Action.WITHDRAW, account, 200.0));
-        Thread t7  = new Thread(new ATMTask(Action.BALANCE,  account, 0.0));
-        Thread t8  = new Thread(new ATMTask(Action.WITHDRAW, account, 500.0));
-        Thread t9  = new Thread(new ATMTask(Action.DEPOSIT,  account, 150.0));
-        Thread t10 = new Thread(new ATMTask(Action.WITHDRAW, account, 200.0));
+        Thread t1 = new Thread(new ATMTask(Action.WITHDRAW,account,700.0), "Client-1");
+        Thread t2 = new Thread(new ATMTask(Action.DEPOSIT,account,800.0),"Client-2");
+        Thread t3 = new Thread(new ATMTask(Action.WITHDRAW,account,600.0),"Client-3");
+        Thread t4 = new  Thread(new ATMTask(Action.BALANCE,account,700.0), "Client-4");
+        Thread t5  = new Thread(new ATMTask(Action.DEPOSIT,  account, 100.0), "Client-5");
+        Thread t6  = new Thread(new ATMTask(Action.WITHDRAW, account, 200.0), "Client-6");
+        Thread t7  = new Thread(new ATMTask(Action.BALANCE,  account, 0.0), "Client-7");
+        Thread t8  = new Thread(new ATMTask(Action.WITHDRAW, account, 500.0), "Client-8");
+        Thread t9  = new Thread(new ATMTask(Action.DEPOSIT,  account, 150.0),"Client-9");
+        Thread t10 = new Thread(new ATMTask(Action.WITHDRAW, account, 200.0),"Client-10");
 
         t1.start();
         t2.start();
@@ -56,6 +57,23 @@ public class Main {
         dans la methode , le thread 2 doit attendre que
         le thread 1 se termine avant d`y acceder a cette methode.
          */
+
+
+        /*
+        Les exception personnalisées heritent de Exception car elle represente des erreurs metiers previsibles.
+        Heriter de Runtime aurait permis permis d'ignorer ces erreurs.
+
+         */
+        //Scenarios obligatoires
+        Thread t11 = new Thread(new ATMTask(Action.WITHDRAW, account, 200.0),"Client-valid withdraw");
+        Thread t12 = new Thread(new ATMTask(Action.WITHDRAW, account, 2000.0),"Client-too large withdraw");
+        Thread t13 = new Thread(new ATMTask(Action.DEPOSIT, account, -50.0),"Client-negative deposit");
+        Thread t14 = new Thread(new ATMTask(Action.BALANCE,  account, 0.0), "Client- balance inquiry");
+
+        t11.start();
+        t12.start();
+        t13.start();
+        t14.start();
 
     }
 }

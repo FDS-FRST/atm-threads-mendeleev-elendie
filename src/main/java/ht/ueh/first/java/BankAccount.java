@@ -9,18 +9,24 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public synchronized void deposit(double amount) {
+    public synchronized void deposit(double amount) throws InvalidAmountException{
+        if  (amount <= 0) {
+throw  new InvalidAmountException("Invalid deposit amount "+amount);
+        }
         balance += amount;
-        System.out.println("Deposit: +" + amount + " | Balance = " + balance);
-    };
+        System.out.println("Deposit successful: +" + amount + " | Balance = " + balance);
+    }
 
-    public synchronized void withdraw(double amount) {
+    public synchronized void withdraw(double amount) throws  InvalidAmountException, InsufficientFundsException {
+        if  (amount <= 0) {
+            throw  new InvalidAmountException("Invalid withdraw amount  "+amount);
+        }
+
         if(amount > balance) {
-            System.out.println("fonds insuffisants | Solde = " + balance);
-            return;
+            throw  new InsufficientFundsException("Insufficient Funds| current Balance"+balance);
         }
         balance -= amount;
-        System.out.println("Withdraw: -" + amount + " | Balance = " + balance);
+        System.out.println("Withdrawal successful: -" + amount + " | Balance = " + balance);
     }
 
     public synchronized double getBalance() {
