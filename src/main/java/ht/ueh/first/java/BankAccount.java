@@ -9,21 +9,21 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public void deposit(double amount) {
+    public synchronized void deposit(double amount) {
         balance += amount;
         System.out.println("Deposit: +" + amount + " | Balance = " + balance);
     };
 
-    public void withdraw(double amount) {
+    public synchronized void withdraw(double amount) {
         if(amount > balance) {
-            System.out.println("Insufficient funds");
+            System.out.println("fonds insuffisants | Solde = " + balance);
             return;
         }
         balance -= amount;
         System.out.println("Withdraw: -" + amount + " | Balance = " + balance);
     }
 
-    public double getBalance() {
+    public synchronized double getBalance() {
         return balance;
     }
 }
